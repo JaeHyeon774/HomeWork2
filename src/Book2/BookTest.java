@@ -82,7 +82,7 @@ public class BookTest {
 		}
 	}
 
-	public boolean insertStudent(int isbn, String title, String author, String publisher, int price, String des) {
+	public boolean insertStudent(BookDTO book) {
 		boolean flag = false;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -101,12 +101,12 @@ public class BookTest {
 
 		try {
 			pstmt = con.prepareStatement(sql2.toString());
-			pstmt.setInt(1, isbn);
-			pstmt.setString(2, title);
-			pstmt.setString(3, author);
-			pstmt.setString(4, publisher);
-			pstmt.setInt(5, price);
-			pstmt.setString(6, des);
+			pstmt.setInt(1, book.getIsbn());
+			pstmt.setString(2, book.getTitle());
+			pstmt.setString(3, book.getAuthor());
+			pstmt.setString(4, book.getPublisher());
+			pstmt.setInt(5, book.getPrice());
+			pstmt.setString(6, book.getDesc());
 
 			rs = pstmt.executeQuery();
 			if (rs.next() == true)
@@ -152,6 +152,7 @@ public class BookTest {
 		
 		boolean s = true;
 		
+		BookDTO book = new BookDTO();
 		BookTest bt = new BookTest();
 		Scanner sc = new Scanner(System.in);
 
@@ -162,13 +163,13 @@ public class BookTest {
 				bt.printAllBooks();
 				break;
 			case 2:
-				System.out.println("ISBN : "); isbn = sc.nextInt(); sc.nextLine();
-				System.out.println("Title : "); title = sc.nextLine();
-				System.out.println("Author : "); author = sc.nextLine();
-				System.out.println("Publisher : "); publisher = sc.nextLine();
-				System.out.println("Price : "); price = sc.nextInt(); sc.nextLine();
-				System.out.println("DESC : "); des = sc.nextLine();
-				boolean a = bt.insertStudent(isbn, title, author, publisher, price, des);
+				System.out.println("ISBN : "); book.setIsbn(sc.nextInt()); sc.nextLine();
+				System.out.println("Title : "); book.setTitle(sc.nextLine());
+				System.out.println("Author : "); book.setAuthor(sc.nextLine());
+				System.out.println("Publisher : "); book.setPublisher(sc.nextLine());
+				System.out.println("Price : "); book.setPrice(sc.nextInt()); sc.nextLine();
+				System.out.println("DESC : "); book.setDesc(sc.nextLine());
+				boolean a = bt.insertStudent(book);
 				if(a == true) System.out.println("insert 되었습니다.");
 				break;
 			case 3:
