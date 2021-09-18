@@ -67,26 +67,8 @@ public class BookDTO {
 	public void setDesc(String desc) {
 		this.desc = desc;
 	}
-
-	public void show(ResultSet rs) {
-		try {
-			while(rs.next()) {
-				System.out.println(rs.getInt("isbn") + "\t |"+rs.getString("title")+"\t |"+rs.getString("author")+
-						"\t |"+rs.getString("publisher")+"\t |"+rs.getInt("price")+"\t |"+rs.getString("des"));
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 	
-	public void show(BookDTO dto) {
-		// TODO Auto-generated method stub
-		System.out.println(dto.isbn + "\t |"+dto.title+"\t |"+
-	dto.author+"\t |"+dto.publisher+"\t |"+dto.price+"\t |"+dto.desc);
-	}
-	
-	public void show(List<BookDTO> list) {
+	public void toString(List<BookDTO> list) {
 		// TODO Auto-generated method stub
 		for(int i = 0; i<list.size(); i++) {
 			System.out.println(list.get(i).isbn + "\t |"+list.get(i).title+"\t |"+

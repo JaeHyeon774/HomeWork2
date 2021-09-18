@@ -26,60 +26,49 @@ public class BookTest {
 
 		sql.append(" select isbn, title, author, publisher, price, des from library ");
 
-		System.out.println("*********************** 도서 목록  ***********************");
-		try {
-			pstmt = con.prepareStatement(sql.toString());
-			rs = pstmt.executeQuery();
-			BookDTO dto = new BookDTO();
+			try {
+				pstmt = con.prepareStatement(sql.toString());
+				rs = pstmt.executeQuery();
+				BookDTO dto = new BookDTO();
 
-//			while (rs.next()) {
-//				List<BookDTO> list = new ArrayList<BookDTO>();
-//				dto.setIsbn(rs.getInt("isbn"));
-//				dto.setTitle(rs.getString("title"));
-//				dto.setAuthor(rs.getString("author"));
-//				dto.setPublisher(rs.getString("publisher"));
-//				dto.setPrice(rs.getInt("price"));
-//				dto.setDesc(rs.getString("des"));
-//				list.add(dto);
-//				dto.show(list);
-//			}
-//		dto.show(rs);
-			while (rs.next()) {
-				dto.setIsbn(rs.getInt("isbn"));
-				dto.setTitle(rs.getString("title"));
-				dto.setAuthor(rs.getString("author"));
-				dto.setPublisher(rs.getString("publisher"));
-				dto.setPrice(rs.getInt("price"));
-				dto.setDesc(rs.getString("des"));
-				dto.show(dto);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			try {
-				if (rs != null)
-					rs.close();
+				while (rs.next()) {
+					List<BookDTO> list = new ArrayList<BookDTO>();
+					dto.setIsbn(rs.getInt("isbn"));
+					dto.setTitle(rs.getString("title"));
+					dto.setAuthor(rs.getString("author"));
+					dto.setPublisher(rs.getString("publisher"));
+					dto.setPrice(rs.getInt("price"));
+					dto.setDesc(rs.getString("des"));
+					list.add(dto);
+					dto.toString(list);
+				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
-			try {
-				if (pstmt != null)
-					pstmt.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			} finally {
+				try {
+					if (rs != null)
+						rs.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				try {
+					if (pstmt != null)
+						pstmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 
-			try {
-				if (con != null)
-					con.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				try {
+					if (con != null)
+						con.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
-		}
 	}
 
 	public boolean insertStudent(BookDTO book) {
@@ -142,20 +131,12 @@ public class BookTest {
 	}
 
 	public static void main(String[] args) {
-		// isbn, title, author, publisher, price, des
-		int isbn;
-		String title;
-		String author;
-		String publisher;
-		int price;
-		String des;
-		
 		boolean s = true;
 		
 		BookDTO book = new BookDTO();
 		BookTest bt = new BookTest();
 		Scanner sc = new Scanner(System.in);
-
+		
 		System.out.println("1. 도서 목록 출력\n2. 도서 목록 추가\n3. 종료");
 		while(s) {
 			switch (sc.nextInt()) {
